@@ -15,8 +15,35 @@
 	  {% endif %}
 	{% endwith %}
 </p>
-{% if filename1 %}
 </center>
+
+{% if err1 %}
+<center>
+	<h3>warning - </h3>
+		<div>
+			<h3>System has detected both uploaded images are Photo</h3>
+		</div>
+</center>
+{% endif %}
+
+{% if err2 %}
+<center>
+	<h3>Warning - </h3>
+		<div>
+			<h3>System has detected both uploaded images are Signature</h3>
+		</div>
+</center>
+{% endif %}
+
+{% if uerr %}
+<center>
+		<div>
+			<h3>Try Again</h3>
+		</div>
+</center>
+{% endif %}
+
+{% if filename1 %}
 <center>
 	<h3>Photo - </h3>
 		<div>
@@ -24,6 +51,7 @@
 		</div>
 </center>
 {% endif %}
+
 {% if filename2 %}
 <center>
 	<h3>Signature - </h3>
@@ -32,6 +60,7 @@
 		</div>
 </center>
 {% endif %}
+
 <center>
 	<form method="post" action="/" enctype="multipart/form-data">
 		<dl>
