@@ -1,6 +1,9 @@
 <!doctype html>
-<title>Python Flask File Upload Example</title>
-<h2>Select a file to upload</h2>
+<title>Human Photo and Signature Autoplace</title>
+
+<center>
+<h1>Select a file to upload</h1>
+<hr>
 <p>
 	{% with messages = get_flashed_messages() %}
 	  {% if messages %}
@@ -12,29 +15,37 @@
 	  {% endif %}
 	{% endwith %}
 </p>
-<h3>Photo - </h3>
 {% if filename1 %}
-	<div>
-		<img src="{{ url_for('display_image', filename=filename1) }}", height="150px", width="240px">
-	</div>
+</center>
+<center>
+	<h3>Photo - </h3>
+		<div>
+			<img src="{{ url_for('display_image', filename=filename1) }}", height="150px", width="240px">
+		</div>
+</center>
 {% endif %}
-<h3>Signature - </h3>
 {% if filename2 %}
-	<div>
-		<img src="{{ url_for('display_image', filename=filename2) }}", height="150px", width="240px">
-	</div>
+<center>
+	<h3>Signature - </h3>
+		<div>
+			<img src="{{ url_for('display_image', filename=filename2) }}", height="150px", width="240px">
+		</div>
+</center>
 {% endif %}
-<form method="post" action="/" enctype="multipart/form-data">
-    <dl>
+<center>
+	<form method="post" action="/" enctype="multipart/form-data">
+		<dl>
+			<p>
+				<h3>1) Please Upload <b>Photo</b> here -</h3>
+				<input type="file" name="file1" autocomplete="off", style="background-color: cyan; width: 280px; height: 22px;" required>
+				<br>
+				<h3>2) Please Upload <b>Signature</b> here - </h3>
+				<input type="file" name="file2" autocomplete="off", style="background-color: cyan; width: 280px; height: 22px;" required>
+			</p>
+		</dl>
 		<p>
-            <h3>Please Upload Photo here -</h3>
-			<input type="file" name="file1" autocomplete="off" required>
-            <br>
-            <h3>Please Upload Signature - </h3>
-            <input type="file" name="file2" autocomplete="off" required>
+			<br>
+			<input type="submit" value="Submit" style="width: 180px; height: 28px; background-color: limegreen; border-radius: 32px;">
 		</p>
-    </dl>
-    <p>
-		<input type="submit" value="Submit">
-	</p>
-</form>
+	</form>
+</center>
