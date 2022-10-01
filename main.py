@@ -12,6 +12,8 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+hostName = "https://photo-sign-autoplace.herokuapp.com"
+apiEndpoint = "https://human-detection-api.herokuapp.com/detectHuman?imgUrl="
 
 
 def allowed_file(filename):
@@ -45,8 +47,8 @@ def upload_image():
         file2.save(os.path.join(app.config['UPLOAD_FOLDER'], filename2))
 		# print('upload_image filename: ' + filename)
         flash('Image successfully uploaded and displayed below')
-        q = str("https://photo-sign-autoplace.herokuapp.com"+url_for('static', filename='uploads/' + filename1))
-        r = requests.get("https://human-detection-api.herokuapp.com/detectHuman?imgUrl="+q)
+        q = str(hostName+url_for('static', filename='uploads/' + filename1))
+        r = requests.get(apiEndpoint+q)
         # print(str(r.text))
         resp = str(r.text)
         # print(resp)
@@ -55,6 +57,7 @@ def upload_image():
             # print("person")
             return render_template('upload.html', filename1=filename1, filename2=filename2)
         else:
+            flash('Photo and Signature Auto Replaced by System')
             # print("signature")
             return render_template('upload.html', filename1=filename2, filename2=filename1)
     else:
