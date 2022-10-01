@@ -47,19 +47,28 @@ def upload_image():
         file2.save(os.path.join(app.config['UPLOAD_FOLDER'], filename2))
 		# print('upload_image filename: ' + filename)
         flash('Image successfully uploaded and displayed below')
-        q = str(hostName+url_for('static', filename='uploads/' + filename1))
-        r = requests.get(apiEndpoint+q)
+        q1 = str(hostName+url_for('static', filename='uploads/' + filename1))
+        r1 = requests.get(apiEndpoint+q1)
         # print(str(r.text))
-        resp = str(r.text)
+        resp1 = str(r1.text)
+
+        q2 = str(hostName+url_for('static', filename='uploads/' + filename2))
+        r2 = requests.get(apiEndpoint+q2)
+        # print(str(r.text))
+        resp2 = str(r2.text)
         # print(resp)
 
-        if resp == "Person":
-            # print("person")
+        if resp1 == "Person" and resp2 == "Signature":
             return render_template('upload.html', filename1=filename1, filename2=filename2)
-        else:
+        elif resp1 == "Signature" and resp2 == "Person":
             flash('Photo and Signature Auto Replaced by System')
-            # print("signature")
             return render_template('upload.html', filename1=filename2, filename2=filename1)
+        elif resp1 == "Person" and resp2 == "Person":
+            return render_template('upload.html', err1 = "p")
+        elif resp1 == "Signature" and resp2 == "Signature":
+            return render_template('upload.html', err2 = "s")
+        else:
+            return render_template('upload.html', uerr = "u")
     else:
         flash('Allowed image types are -> png, jpg, jpeg, gif')
         return redirect(request.url)
